@@ -1,0 +1,177 @@
+{% extends 'detalle_base_carro.html' %}
+
+
+{% block content %}
+
+<style>
+.sidenav {
+       float: right;
+        width: 15%;
+        height: 1300px;
+        position:static;
+        z-index: 1;
+        top: 0%;
+        left: 0%;
+        background-color: rgb(224, 224, 224);
+        overflow-x: hidden;
+        padding-top: 0px;
+        
+      }
+      .sidenav a{
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: azure;
+        display: block;
+
+      }
+      .sidenav a:hover{
+
+        color: bisque;
+      }
+      .main{
+        margin-left: 160px;
+        padding: 0px 10px;
+
+      }
+    
+      
+</style>
+
+{% if user.is_authenticated %}
+<div class="sidenav">
+  <div class="card" style=" height: 250px; width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"> Subtotal ({{numero}} Productos ):</h5>
+      <h6 class="card-subtitle mb-2 text-muted" style="text-align: center;" > PRECIO</h6>
+      {% if valor.total %}
+      <p class="card-text" style=" font-size: x-large; text-align: center;"> US$ {{valor.total}} </p>
+      {% else %}
+      <p class="card-text" style=" font-size: x-large; text-align: center;"> US$ 0 </p>
+      {% endif %}
+      
+   
+     
+      <button type="button" style=" margin-left: 40px;" class="btn btn-primary">Proceder al pago</button>
+      <a href="#" class="card-link"></a>
+      </div>
+      </div>
+      <h3>Productos vistos recientemente</h3>
+
+      <div class="container">
+        {% for ultima in ultimas %}
+            <div class="card" style="margin-top: 15px;">
+                <p style="text-align: center;">$ {{ultima.articulo.precio}}</p>
+                <img src="{{ultima.articulo.avatar.url}} " alt="">
+                <form action="{% url 'carro_compra:ultimos'  ultima.pk  %} " method="GET">{% csrf_token %}
+                  <div class="card-boby">
+                      {{ultima.articulo.titulo|truncatechars:50}}
+                      <button type="submit" style=" height: 45px; margin-left:30px;"  class="btn btn-primary" > agregar al carrito</button>
+                  </div>
+              </form>
+            </div>    
+        {% endfor %}
+      </div>
+</div>    
+
+
+<div class="container">
+{% for product in productos %}
+<div class="card mb-3" style=" max-height: 300px; max-width: 1300px ">
+  <div class="row g-0" style="padding-top: 15px;">
+    <div class="col-md-4">
+      {% if product.moda %}
+      <img src="{{product.moda.avatar.url}} "class="img-fluid rounded-start" style="height: 250px;" alt="...">
+      {% endif %}
+      {% if product.productos %}
+      <img src="{{product.productos.avatar.url}} "class="img-fluid rounded-start" style="height: 250px;" alt="...">
+      {% endif %}
+    </div>
+
+    <div class="col-md-8" style=" padding-top: 15px; height: 80px;">
+      <div class="card-body" style=" background-color: bisque;">
+        <h5 class="card-title">{{product.productos.titulo|truncatechars:50}} </h5>
+      {% if product.productos.tamaño  %}
+        <li class="list-group-item"><span style="color:  rgb(0, 81, 255);"> Tamaño: </span>{{product.productos.tamaño}} </li>
+      {% elif product.productos.cantidad %}
+        <p style="color: brown;">disponibles: {{product.productos.cantidad}}</p>
+      {% elif product.productos.procesador %}  
+        <li class="list-group-item"><span style="color:  rgb(0, 81, 255);"> Generacion:</span> {{product.productos.procesador}} </li>
+      {% elif product.productos.precio %}
+        <li class="list-group-item">precio: $ {{product.productos.precio}} </li>
+      {% endif %}
+
+
+      {% if product.moda %}
+      <h5 class="list-group-item"><span style="color:  rgb(0, 0, 0);">{{product.moda.titulo}}</span></h5>
+      {% if product.moda %}
+      <li class="list-group-item"><span style="color:  rgb(0, 81, 255);"> Disponibles: </span> {{product.moda.cantidad}} </li>
+      {% endif %}
+      {% if product.moda %}
+      <li class="list-group-item"><span style="margin: 5px; color:  rgb(0, 81, 255);"> Precio: </span>$ {{product.moda.precio}} </li>
+        
+      {% endif %}
+      {% elif product.moda.cantidad %}
+      <li class="list-group-item"><span style="color:  rgb(0, 81, 255);"> Disponibles: </span> {{product.moda.titulo}} </li>
+      {% endif %}
+  
+      <div class="dropdown">
+        
+           
+            <a href="{% url 'carro_compra:disminuir-uno-mas' product.id %}" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-send-dash-fill" viewBox="0 0 16 16">
+              <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+              <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-5.5 0a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Z"/>
+            </svg></a>
+            <button class="btn btn-outline-primary" type="button" >
+              {{product.cantidad}}
+            </button>
+           
+
+          <a href="{% url 'carro_compra:agregar-uno-mas' product.id %} " type="submit"  ><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-send-plus-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+          </svg></a>
+          
+
+
+       
+        
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+          {% for cant in cantidad %}
+          <li><a class="dropdown-item active" href="#">{{cant}}</a></li>
+          {% endfor %}
+        </ul>
+
+      </div> 
+        {% if product.productos %}
+        <a href="{% url 'carro_compra:eliminar-producto' product.productos.id %} " type="button" class="btn btn-outline-danger">eliminar producto</a>
+        {% elif product %}
+        <a href="" type="button" class="btn btn-outline-danger">eliminar producto</a>
+        {% else %}
+        <a href=" " type="button" style="padding-top: 10px;" class="btn btn-outline-danger">eliminar producto</a>
+        {% endif %}
+        
+        <a href="" type="button" class="btn btn-outline-primary">guardar para mas tarde</a>
+        <a href="" type="button" class="btn btn-outline-primary">agregar a lista</a>
+        <a href="#" type="button" class="btn btn-outline-primary">comprar con articulos similares</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+</div>
+{% else %}
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">registrate!</h4>
+  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+  <hr>
+  <p class="mb-0">Whenever you need to</p>
+</div>
+
+{% endif %}
+
+
+
+
+{% endblock content %}

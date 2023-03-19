@@ -1,0 +1,107 @@
+{% extends "detalle_base_carro.html" %}
+
+
+
+
+{% block content %}
+
+{{user}}
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <h1 style="text-align: center;">{{producto.modelo|title }} </h1>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        
+          <img src="{{producto.avatar.url}} " style="height: 750px; width: 120px;" class="d-block w-100" alt="...">
+      </div>  
+          <div class="card text-bg-dark">
+          <div class="card-img-overlay">
+            <div  style="margin-left: 50px;">
+              
+              <p class="card-text"><small></small></p>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="carousel-item">
+        <div class="card text-bg-dark">
+        <img src="{{producto.imagen1.url}} " style="height: 750px; width: 120px;" class="d-block w-100" alt="...">
+        <div class="card-img-overlay">
+          <div  style="margin-left: 50px;">       
+          <p class="card-text"><small></small></p>
+        </div>
+        </div>
+
+      </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card text-bg-dark">
+        <img src="{{producto.imagen2.url}} " style="height: 750px; width: 120px;" class="d-block w-100" alt="...">
+        <div class="card-img-overlay">
+        <div  style="margin-left: 50px;">
+        <p class="card-text"><small></small></p>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <span ><svg style=" margin-left: 45%;" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+    
+  </svg> {{producto.get_vistas_count}} </span>
+
+
+<div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"> $ {{producto.precio}} </h5>
+      <p class="card-text">{{producto.titulo }} </p>
+      <p style="color: red;">Disponible: {{producto.cantidad}} </p>
+ 
+      <form action="{% url 'carro_compra:agregar-producto'  producto.pk  %}" method="POST">{% csrf_token %}
+          <p> {{forma}} </p> 
+          <button type="submit" style="border-radius: 15px; height: 35px;" class="btn btn-primary">agregar al carrito</button>
+      </form> 
+      <p class="card-text"><small class="text-muted"></small></p>
+    
+    </div>
+  </div>
+
+<div class="a-image-container a-dynamic-image-container greyBackground" style="width:50%; height:1px;">
+
+    <div>
+        <h2 style="color:rgb(0, 0, 0) ;">RELACIONADAS....</h2>
+            <div class="container">
+            <div class="row" >
+                {% for valor in lista  %}
+                    <div class="col-md-3" style="width: 350px; padding:30px ;">
+                        <div class="card"   style='height: 100%;'>
+                        <a href="{% url 'inicio:detalle-productos'  valor.id %} "><img src="{{valor.avatar.url}} " style="height: 200px; width: 100%;"  class=" card-img-top" alt=""> </a>
+                        <div class="card-body">
+                            <h6>{{valor.modelo}} </h6>
+                            <h5 class="card-title">{{valor.precio}} </h5>
+                        </div>                      
+                        </div>
+                    </div>
+                    
+                {% endfor %} 
+            </div> 
+            </div>
+    </div>
+</div>    
+
+
+{% endblock content %}

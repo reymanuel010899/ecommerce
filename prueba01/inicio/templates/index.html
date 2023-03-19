@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container" style=" margin: auto; width: 80% ;margin-left: 300px; margin-right: 100px; ">
+<div id="carouselExampleControls"  style="" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <a href="" style="margin-left: 100px;" >
+        <img src=" {% static 'img/oferta.jpg' %}" style="height: 550px; width: 120px;" class="d-block w-100" alt="...">
+      </a>
+    </div> 
+
+        <div class="card text-bg-dark">
+            <div class="card-img-overlay">
+                <div  style="margin-left: 50px;">
+                  <h3 class="card-title"> </h3>
+                  <h5 class="card-text"></h5>
+                  <p class="card-text"><small></small></p>
+              </div>
+            </div>
+      </div>
+  
+
+    <div class="carousel-item">
+          <div class="card text-bg-dark">
+                <a href="" style="margin-left: 100px;"  >
+                  <img src=" {% static 'img/oferta2.jpg'  %} " style=" height: 550px; width: 50px; " class="d-block w-100" alt="...">
+                </a>
+          <div class="card-img-overlay">
+              <div  style="margin-left: 50px;">
+                  <h3 class="card-title"></h3>
+                  <h5 class="card-text"> </h5>
+                
+                  <p class="card-text"><small></small></p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+          <div class="carousel-item">
+              <div class="card text-bg-dark">
+                  <a href="" style="margin-left: 100px;">
+                  <img src=" {% static 'img/oferta6.jpg'  %}" style="height: 550px; width: 50px; " class="d-block w-100" alt="...">
+                  </a>
+                <div class="card-img-overlay">
+                <div  style="margin-left: 50px;">
+                    <h3 class="card-title"> </h3>
+                    <h5 class="card-text"> </h5>
+                    <p class="card-text"><small></small></p>
+                </div>
+                </div>
+              </div>
+          </div>
+  
+</div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+
+<div class="container" style="position:absolute; top: 60%; margin-left: 300px; margin-right: 500px;" >
+
+<div class="card-group" >
+    <div class="row" style="margin-left: 10px;  background-color: rgb(246, 238, 238); margin-bottom: 80px; margin-right: 60px; width: 30%;">
+      
+      {% if user.is_authenticated %}
+      <h3 style=" font-size:x-large; text-align: center;">sigue domde te quedaste </h3>
+      {% for vista in vistas  %}
+      <div class="col-md-4" style=" margin-bottom: 15px; padding-top: 25px; margin: 0%; padding: auto; width: 50%;">
+        
+        <div class="card-group" style=" padding-top: 0PX; margin-bottom: 15px;" >
+          <span style="margin: auto;">{{vista.articulo.modelo|truncatechars:15}}</span>
+        <a href="{% url 'carro_compra:convertir-ultima-vista' vista.id %}">
+          <img src="{{vista.articulo.avatar.url}} " style=" border-radius: 15px;  max-height: 200px; width: 100%;"  alt="">
+      </a>
+      </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <h4 style="text-align: center;">inicia sesion para vivir mejor tu experiencia</h4>
+      <div style="padding-top: 20px;">
+      <a href="{% url 'inicio:identificate' %}"  class="btn btn-outline-primary" style="width: 300px; height: 35px; margin-left: 35px; " >iniciar sesion de forma segura</a>
+    </div>
+      {% endif %}
+    </div>
+
+
+  
+    <div class="row" style="background-color: rgb(246, 238, 238);  margin-bottom: 80px; width: 30%;">
+      <h3 style="font-size:x-large; text-align: center;">compra por categorias</h3>
+    {% for vista in categorias  %}
+    <div class="col-md-3" style=" padding-top: 25px; margin: 0%; padding: auto; width: 50%;">
+      <div class="card-group">
+        
+        <span style="margin: auto;">{{vista.modelo}}</span>
+      <a href=" {% url 'moda:categoria-moda' vista.categoria.nombre %} ">
+      <img src="{{vista.avatar.url}} " style=" border-radius: 50%; height: 200px; width: 100%;"  alt="">
+    </a>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="row" style="  background-color: rgb(246, 238, 238);   margin-left: 50px; margin-bottom: 80px; width: 30%;">
+    
+  <h3 style="font-size:x-large; text-align: center;">ofertas por categorias</h3>
+  <span class="position-absolute top-15  start-10 translate-middle badge rounded-pill bg-danger" style="margin-left: 26px; width: 70px;">
+    OFERTAS
+    <span class="visually-hidden">unread messages</span>
+  </span>
+
+  {% for vista in categorias_oferta  %}
+  <div class="col-md-3" style=" padding-top: 25px; margin: 0%; padding: auto; width: 50%;">
+    
+    <div class="card-group">
+      <span style="margin: auto;">{{vista.modelo|truncatechars:15}}</span>
+      <a href="{% url 'moda:oferta-by-categoy' vista.id %} ">
+      <img src="{{vista.avatar.url}} " style=" border-radius: 10PX; height: 200px; width: 100%;"  alt="">
+     
+      </a>
+     
+  </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+
+
+<div class="container" style="margin-bottom:60px; height: 300px; background-color: rgb(246, 238, 238);">
+  <h3>articulos mas populares</h3> 
+<div>
+  <div>
+    <div class="row">
+      {% for visita in  mas %}
+      <div class="col-md-3">
+          <div class="card" style="width: 18rem;">
+            <a href="{% url 'inicio:detalle-productos' visita.id  %}">
+              <img src="{{visita.avatar.url}}"  style="height: 200px; width: 100%;"  class="card-img-top" alt="...">
+            </a>
+              <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text" style="padding-top: 0%;">{{visita.articulo}}</p>
+              </div>
+            </div>
+      </div>
+      {% endfor %}
+  </div>
+ </div>
+</div>
+</div>
+
+
+<div class="container" style="margin-bottom:60px; height: 300px; background-color: rgb(246, 238, 238);">
+ <h3>articulos de moda</h3>  
+<div>
+  <div>
+    <div class="row">
+      {% for visita in  ropa %}
+      <div class="col-md-3">
+          <div class="card" style="width: 18rem;">
+            <a href="{% url 'inicio:detalle-productos' visita.id %} ">
+              <img src="{{visita.avatar.url}} "  style="height: 200px; width: 100%;"  class="card-img-top" alt="...">
+            </a>
+              <div class="card-body">
+                <h5 class="card-title">{{visita.titulo | truncatechars:20 }} </h5>
+                <p class="card-text" style="padding-top: 0%;"></p>
+              </div>
+            </div>
+      </div>
+      {% endfor %}
+  </div>
+ </div>
+</div>
+</div>
+
+
+<div class="container" style="margin-bottom:60px; height: 700px; background-color: rgb(246, 238, 238);">
+ 
+<div>
+  <div>
+    <div class="row">
+      {% for visita in  articulo %}
+      <div class="col-md-3">
+          <div class="card" style="margin-top: 40px; width: 18rem;">
+            <a href="{% url 'inicio:detalle-productos' visita.id  %}">
+              <img src="{{visita.avatar.url}} "  style="height: 200px; width: 100%;"  class="card-img-top" alt="...">
+            </a>
+              <div class="card-body">
+                <h5 class="card-title">{{visita.modelo | truncatechars:20 }} </h5>
+                <p class="card-text" style="padding-top: 0%;">$ {{visita.precio}} </p>
+              </div>
+            </div>
+      </div>
+      {% endfor %}
+  </div>
+ </div>
+</div>
+</div>
+
+{% endblock content %}

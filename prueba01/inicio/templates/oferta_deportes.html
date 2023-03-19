@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="container" style="margin-left:320px ;">
+    <div class="row" >
+        {% for lapto in  page   %}
+        <div class="col-md-3" style="padding-top: 30px;">
+          <div class="card" style="padding-top: 60px; width: 18rem;">
+            <a href="{% url 'inicio:detalle-productos' lapto.producto.id %}?total={{lapto.descuent}}  ">
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                   {{lapto.porciento}} %
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                <span class="position-absolute top-0  start-20 translate-middle badge rounded-pill bg-danger" style="margin-left: 40px; width: 70px;">
+                    OFERTAS
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                <img src="{{lapto.producto.avatar.url}} "   style="height: 200px; width: 100%;"  class="card-img-top" alt="...">
+              </a>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <hr>
+                  <h5 class="card-text">{{lapto.producto.precio}}  / <b>${{lapto.descuent  }} </b></h5>
+                </div>
+          
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{lapto.producto.modelo}}</li>
+                    
+                </ul>
+              </div>
+            </div>
+          
+         {% endfor %}
+    </div> 
+  
+</div>
+
+{% endblock content %}
+
+
+  

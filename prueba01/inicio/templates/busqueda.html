@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="margin-left: 320px;">
+    <section style=""><h1>resultado</h1></section>
+    <div class="row">
+        {% for electronico in  electronicos %}
+        <div class="col-md-3" style="padding:30px ;">
+            <div class="card"   style='height: 100%;'>
+              <a href=" {% url 'inicio:detalle-productos' electronico.id %}">
+                <img src="{{electronico.avatar.url}}"  style="height: 200px; width: 100%;"  class="card-img-top" alt="...">
+              </a>
+                <div class="card-body">
+                  {% if electronico.modelo %}
+                    <h5 class="card-title" style="padding-top: 30px;">{{electronico.modelo}} </h5>
+                  {% else %} 
+                    <h5 class="card-title" style="padding-top: 30px;">{{electronico.tipo}} </h5>
+                  {% endif %}
+                  
+                  <p class="card-text">{{electronico.titulo | truncatechars:50 }} </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" style="color: rgb(0, 0, 0);">$ {{electronico.precio}} </li>
+                  
+                  {% if electronico.tamaño %}
+                    <li class="list-group-item">tamaño: {{electronico.tamaño}} </li>
+                  {% elif electronico.procesador %}  
+                    <li class="list-group-item">{{electronico.procesador}} </li>
+                  {% elif electronico.tamaño %}
+                    <li class="list-group-item">tamaño: {{electronico.tamaño}} </li>
+                  {% endif %}
+                </ul>
+                <div class="card-body">
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
+
+        </div>
+          
+        {% endfor %}
+
+{% endblock content %}

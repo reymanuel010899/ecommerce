@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="menu">
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Top navbar example · Bootstrap v5.2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/navbar-static/">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %} ">
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <meta name="google" value="notranslate"/>
+    <title>Side Menu</title>
+
+  
+  
+  </head>
+<body>
+    <nav class="navbar navbar-expand-lg " style="background-color: black; ">
+      
+        <form action=" {% url 'inicio:busqueda-contenido' %}" method="GET" class="d-flex" role="search" style="width: 50%; margin: auto;">
+          <div class="input-group mb-3">
+            <button type="button" class="btn btn-outline-secondary">Action</button>
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">  
+            </button>
+            <ul class="dropdown-menu">
+              <select aria-describedby="searchDropdownDescription" class="nav-search-dropdown searchSelect nav-progressive-attrubute nav-progressive-search-dropdown" data-nav-digest="bc4g2gpX93q5i825SIMRprMtYdc=" data-nav-selected="0" id="searchDropdownBox" name="url" style="display: block; top: 2.5px;" tabindex="0" title="Buscar en">
+                <li><option selected="selected" value="search-alias=aps">Todos los departamentos</option></li>
+                <option value="electronicos">electronicos</option>
+                <option value="hombres" >ropas de hombres</option>
+                <option value="mujer">ropas de mujer</option>
+                <option value="niños">ropas de niños</option>
+                <option value="electrodomesticos">electrodomesticos</option>
+                <option value="deportes">deportes</option>
+        
+            </select>
+            </ul>
+            <input type="text" class="form-control" name="contenido" aria-label="Text input with segmented dropdown button">
+
+
+          </div>
+           
+            <button class="btn btn-outline-success" style=" margin: 4px; height: 35px;" type="submit">Search</button>
+          </form>
+
+
+          <a href="{% url 'carro_compra:carro-compra' %} " type="button" class="btn btn-primary position-relative" style="margin-right: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            carrito
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{numero}}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a>
+
+
+        </div>
+      </div>
+    </nav>
+ 
+    <section >
+      <aside class="sidebar">
+             <header>
+           <a href="{% url 'inicio:inicio' %} "><h2 style="text-align: center ; color:rgb(0, 0, 0);">REYSTORY</h2></a>
+          </header>
+        <nav class="sidebar-nav">
+ 
+          <ul>
+            <li>
+              <a href="{% url 'inicio:electrodomesticos' %}"><i class="ion-bag"></i> <span>ELECTRONICOS</span></a>
+              <ul class="nav-flyout">
+                <li>
+                  <a href=" {% url 'inicio:listar-movie' %}  "><i class="ion-ios-color-filter-outline"></i>celulares</a>
+                </li>
+                <li>
+                  <a href="{% url 'inicio:listar-acesorio' %} "><i class="ion-android-star-outline"></i>acesorios</a>
+                </li>
+                <li>
+                  <a href="{% url 'inicio:listar-pc' %} "><i class="ion-heart-broken"></i>pc</a>
+                </li>    
+              </ul>
+            </li>
+            <li>
+              <a href="{% url 'moda:listar-ropa-hombre' %}"><i class="ion-ios-settings"></i> <span class="">ROPAS DE HOMBRES</span></a>
+              <ul class="nav-flyout">
+                <li>
+                  <a href=" {% url 'moda:listar-pantalones' %}"><i class="ion-ios-alarm-outline"></i>pantalones</a>
+                </li>
+                <li>
+                  <a href="{% url 'moda:listar-polochert' %} "><i class="ion-ios-camera-outline"></i>polocher</a>
+                </li>
+                
+                
+                <li>
+                  <a href="{% url 'moda:listar-tenis' %} "><i class="ion-ios-cog-outline"></i>tenis</a>
+                </li>
+                <li>
+                  <a href="{% url 'moda:listar-ropa-interior' %} "><i class="ion-ios-cog-outline"></i>ropa interior</a>
+                </li>
+                <li>
+          
+                </li>
+              </ul>
+            </li>
+           
+            <li>
+              <a href="{% url 'moda:listar-ropa-mujer' %}"><i class="ion-ios-briefcase-outline"></i> <span class="">ROPAS DE MUJER</span></a>  
+              <a href="{% url 'moda:listar-ropa-niño' %}"><i class="ion-ios-analytics-outline"></i> <span class="">ROPAS DE NIÑOS</span></a>
+              <a href="{% url 'moda:listar-electrodomesticos' %}"><i class="ion-ios-navigate-outline"></i> <span class="">ELECTRODOMESTICOS</span></a>
+              <a href="{% url 'moda:listar-deportes' %}"><i class="ion-ios-navigate-outline"></i> <span class="">DEPORTES</span></a>
+              <ul class="nav-flyout">
+                
+              </ul>
+            </li>
+            <li>
+              <a href="{% url 'moda:listar-historial' %}"><i class="ion-ios-medical-outline"></i> <span class="">HISTORIAL DE BUSQUEDAS</span></a>
+              <a href="{% url 'inicio:salir-seccion' %}"><i class="ion-ios-medical-outline"></i> <span class="">CERRAR SECION</span></a>
+              <ul class="nav-flyout">
+                
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </section>
+    {% block content %}
+    
+    {% endblock content %}
+    <div class="card text-center">
+      <div class="card-header">
+        <span style="color: blueviolet;">Derecho de Autor</span> :  Rey Manuel Ferreras
+      </div>
+      <div class="card-body" style="height: 200px;">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="{% url 'inicio:identificate' %} " class="btn btn-primary">identificate</a>
+      </div>
+      <div class="card-footer text-muted">
+      
+      </div>
+    </div>
+    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>
